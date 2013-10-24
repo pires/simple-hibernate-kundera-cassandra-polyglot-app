@@ -4,7 +4,7 @@
   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
   version="2.1">
   <persistence-unit name="RDBMS_PU" transaction-type="JTA">
-    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <jta-data-source>jdbc/PolyglotDS</jta-data-source>
     <class>com.github.pires.polyglot.model.UserRDBMS</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
@@ -12,30 +12,21 @@
     <properties>
       <property name="hibernate.transaction.jta.platform"
         value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform" />
-      <property name="javax.persistence.schema-generation.database.action"
-        value="drop-and-create" />
-      <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
-      <property name="hibernate.default_schema" value="public" />
-      <property name="hibernate.listeners.envers.autoRegister"
-        value="false" />
-      <property name="hibernate.show_sql" value="false" />
-      <property name="hibernate.default_batch_fetch_size"
-        value="8" />
-      <property name="hibernate.max_fetch_depth" value="3" />
+      <property name="hibernate.connection.url" value="jdbc:derby:memory:db" />
+      <property name="hibernate.dialect" value="org.hibernate.dialect.DerbyDialect" />
+      <property name="hibernate.hbm2ddl.auto" value="create" />
+      <property name="hibernate.show_sql" value="true" />
       <property name="hibernate.id.new_generator_mappings"
         value="true" />
     </properties>
   </persistence-unit>
-
+  
   <persistence-unit name="NOSQL_PU">
     <provider>com.impetus.kundera.KunderaPersistence</provider>
-    
     <class>com.github.pires.polyglot.model.UserNoSQL</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
-    
     <properties>
-      <property name="kundera.nodes"
-        value="10.10.1.211,10.10.1.212,10.10.1.213,10.10.1.214" />
+      <property name="kundera.nodes" value="localhost" />
       <property name="kundera.port" value="9160" />
       <property name="kundera.keyspace" value="PolyglotKS" />
       <property name="kundera.dialect" value="cassandra" />
@@ -44,9 +35,8 @@
       <property name="kundera.cache.provider.class"
         value="com.impetus.kundera.cache.ehcache.EhCacheProvider" />
       <property name="kundera.cache.config.resource" value="/ehcache-test.xml" />
-      <property name="kundera.ddl.auto.prepare" value="update" />
+      <property name="kundera.ddl.auto.prepare" value="create" />
       <property name="kundera.client.property" value="kundera-cassandra.xml" />
     </properties>
   </persistence-unit>
-
 </persistence>

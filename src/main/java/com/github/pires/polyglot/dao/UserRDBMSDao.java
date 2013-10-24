@@ -11,6 +11,7 @@
  */
 package com.github.pires.polyglot.dao;
 
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 
 import com.github.pires.polyglot.model.UserRDBMS;
@@ -19,6 +20,7 @@ import com.github.pires.polyglot.model.UserRDBMS;
  * DAO for {@link UserRDBMS} entity.
  */
 @Stateless
+@Local
 public class UserRDBMSDao extends AbstractRDBMSDao<UserRDBMS> {
 
   public UserRDBMSDao() {

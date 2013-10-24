@@ -42,11 +42,15 @@ public class UserService {
   public List<String> retrieveUserNames() {
     List<String> names = new ArrayList<String>();
 
-    for (UserRDBMS u : rdbmsDao.findAll())
-      names.add(u.getName());
+    final List<UserRDBMS> us1 = rdbmsDao.findAll();
+    if (us1 != null)
+      for (UserRDBMS u : us1)
+        names.add(u.getName());
 
-    for (UserNoSQL u : nosqlDao.findAll())
-      names.add(u.getName());
+    final List<UserNoSQL> us2 = nosqlDao.findAll();
+    if (us2 != null)
+      for (UserNoSQL u : us2)
+        names.add(u.getName());
 
     return names;
   }
